@@ -16,7 +16,7 @@ int main(){
     int zwei[2];
    HANDLE h=GetStdHandle(STD_OUTPUT_HANDLE);
     int parteiAnzahl=0;
-    cout << "Anzahl der Partei eingeben!!";
+    cout << "Bitte Anzahl der Partei eingeben!!";
     cin >>parteiAnzahl;
    // cout << parteiAnzahl;
     //bewohner[i]="  ";

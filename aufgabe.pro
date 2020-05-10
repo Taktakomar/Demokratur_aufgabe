@@ -4,4 +4,12 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        einwohner.cpp \
+        farbe_code.cpp \
+        main.cpp \
+        partei.cpp
+
+HEADERS += \
+    einwohner.h \
+    farbe_code.h \
+    partei.h

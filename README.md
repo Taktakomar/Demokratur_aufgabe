@@ -1,1 +1,0 @@
-# Demokratur_aufgabe

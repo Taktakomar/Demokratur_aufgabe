@@ -20,3 +20,7 @@ string Partei::getFarbe()
 {
     return  farbe.get_farbe_wert();
 }
+int Partei::get_code()
+{
+    return  farbe.get_farbe_code();
+}

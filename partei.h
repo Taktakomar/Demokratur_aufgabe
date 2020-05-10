@@ -11,6 +11,7 @@ public:
     Partei();
     Partei(int P_id, string name,farbe_code farbe);
     string getFarbe(void);
+    int get_code(void);
 };
 
 #endif // PARTEI_H

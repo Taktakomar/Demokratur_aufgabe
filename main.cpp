@@ -107,7 +107,7 @@ int main(){
    string zufallig;
    srand ( time(NULL) );
    int wahl =0;
-   int bewohner[400];
+   einwohner bewohner[400];
    int nachbarn[4];
    int zwei[2];
    //Frage nach der Anzahl der gewüschten Fragen
@@ -188,11 +188,22 @@ int main(){
 
             if (zufallig=="JA"){
             int zufall,zufall_id=0;
-
+            string wert="";
                    for (int i=0; i<=399; i++){
                        zufall =rand()% num;
                        zufall_id=id_gewunschte_farbe[zufall];
-                       bewohner[i]=zufall_id;
+                       for (int j=0;j<6;j++)
+                       {
+                         if (farbe[j].get_farbe_code()==zufall_id)
+                         {
+                             wert = farbe[j].get_farbe_wert();
+                            break;
+                         }
+                       }
+
+                       farbe_code f2(zufall_id,wert);
+                       Partei p2(i,"1",f2);
+                       bewohner[i]=einwohner(i,p2);
 
                    }
 
@@ -210,7 +221,7 @@ int main(){
 
              }
 
-                SetConsoleTextAttribute(h,16*bewohner[i]);
+                SetConsoleTextAttribute(h,16*bewohner[i].get_bewohner_code_farbe());
                   cout<<"|__";
 
          }
@@ -282,7 +293,7 @@ int main(){
            while((j<=parteiAnzahl) &&(d<=399))
            {  d=0;
                for(int i=0;i<=399;i++){
-                if (bewohner[i]==j)
+                if (bewohner[i].get_bewohner_code_farbe()==j)
                    {
                        d++;
                    }

@@ -14,3 +14,7 @@ string einwohner::get_gewahlte_partei_Farbe()
 {
     return gewahlte_partei.getFarbe();
 }
+int einwohner::get_bewohner_code_farbe()
+{
+    return gewahlte_partei.get_code();
+}

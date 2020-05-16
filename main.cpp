@@ -146,7 +146,7 @@ int main(){
     srand ( time(NULL) );
 
         lsite_fuhlen_anzeigen();
-            cout<<"Bitte tippen Sie hier den Anzahl der gewünschten Farben : ";
+            cout<<"Bitte tippen Sie hier  den Anzahl der gewünschten Farben : ";
                 num=check_num();
                     if (num>6||num<2){
                         x=false;

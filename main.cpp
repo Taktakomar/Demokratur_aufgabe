@@ -92,7 +92,6 @@ int  check_num1()
        }
     return f ;
 }
-
 void tabelle_zeigen(HANDLE h , einwohner bewohner[])
 {
     cout<<endl;
@@ -225,11 +224,18 @@ int main(){
 
                                   }
 
+                            cout<< "die Parteien sind Auf die Bewohner so verteilt : "<<endl;
+                            tabelle_zeigen(h,bewohner);
+
                     }
 
                 if (zufallig=="NEIN"||zufallig=="nein")
                 {
                     cout<<"noch nicht programiert!"<<endl;
+                    cout<<"versuch nochmal und wähl 'ja' bei zufällig"<<endl;
+                    //cout<<"wie wollen Sie die Parteien auf die Bewohner verteilt ?"<<endl;
+                    //int f=0;
+                    //int summe=100;
 
                    for(int i=0; i<=399; i++){
 
@@ -243,19 +249,23 @@ int main(){
                 }
 
 
-
-
     GetConsoleScreenBufferInfo(h, &SBInfo);
     SHORT a=SBInfo.dwCursorPosition.X;
     SHORT b=SBInfo.dwCursorPosition.Y;
     if(bewohner[0].gewahlte_partei.get_code()!=0)
     {
+
     while(d!=400){
         j=0;
+        SetConsoleTextAttribute(h,15);
+        cout<<"Parteien werden zufällig überzeugen bitte warten Sie....";
+         SetConsoleTextAttribute(h,0);
+         cout<<endl;
             tabelle_zeigen(h,bewohner);
                 SetConsoleTextAttribute(h,0);
                    cout<<endl;
                         SetConsoleCursorPosition(h, {a,b});
+
                             Sleep(500);
                                 clear_console(h);
 

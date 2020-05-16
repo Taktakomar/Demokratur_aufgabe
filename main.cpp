@@ -95,9 +95,11 @@ int  check_num1()
 
 void tabelle_zeigen(HANDLE h , einwohner bewohner[])
 {
+    cout<<endl;
     for (int i=0;i<=399;i++){
-        if (i%20==0 || i==0){
-           SetConsoleTextAttribute(h,16*0);
+        if (i%20==0 && i!=0){
+           SetConsoleTextAttribute(h,0);
+           cout<<"|";
           cout<<endl;
 
         }
@@ -106,6 +108,10 @@ void tabelle_zeigen(HANDLE h , einwohner bewohner[])
              cout<<"|__";
 
     }
+    SetConsoleTextAttribute(h,0);
+    cout<<"|";
+     cout<<endl;
+
 }
 void clear_console(HANDLE h)
 {
@@ -311,7 +317,7 @@ int main(){
   cout<<endl;
 
    SetConsoleTextAttribute(h,15);
-   cout<<"Alle bewohner haben jetzt '"<<bewohner[0].gewahlte_partei.getFarbe()<<"' als gewählte Partei!";
+   cout<<"Alle bewohner haben jetzt zufällig '"<<bewohner[0].gewahlte_partei.getFarbe()<<"' als gewählte Partei!";
    SetConsoleTextAttribute(h,0);
   cout<<endl;
   tabelle_zeigen(h,bewohner);

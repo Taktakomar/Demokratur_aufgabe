@@ -120,7 +120,11 @@ void clear_console(HANDLE h)
    }
 }
 
+
+
 int main(){
+
+
 
     int j,d=0;
     bool x,check_zufallig=false;
@@ -136,7 +140,7 @@ int main(){
     srand ( time(NULL) );
 
         lsite_fuhlen_anzeigen();
-            cout<<"Bitte tippen Sie hier den Anzahl der gewünschten Farben : "<<endl;
+            cout<<"Bitte tippen Sie hier den Anzahl der gewünschten Farben : ";
                 num=check_num();
                     if (num>6||num<2){
                         x=false;
@@ -248,7 +252,8 @@ int main(){
                         SetConsoleCursorPosition(h, {a,b});
                             Sleep(500);
                                 clear_console(h);
-                                    for(int c=0;c<=5000;c++){
+
+                                    for(int c=0;c<=1000;c++){
                                          wahl = rand()%400;
                                          nachbarn[0]= wahl-1;
                                          nachbarn[1] = wahl+1;

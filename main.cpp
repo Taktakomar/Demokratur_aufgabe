@@ -10,6 +10,8 @@
 #include<farbe_code.h>
 #include<partei.h>
 #include<einwohner.h>
+#include<farbe_prozent.h>
+#include <cmath>
 
 
     using namespace std;
@@ -92,6 +94,24 @@ int  check_num1()
        }
     return f ;
 }
+int  check_num2()
+{
+    int f ;
+    string line;
+    while (getline(cin, line)){
+           stringstream ss(line);
+           if (ss >> f)
+           {
+               if (ss.eof())
+               {
+                   break;
+               }
+           }
+           cout<<"Achtung ! prozent soll eine nummer sein"<<endl;
+           cout<<"Bitte eine Gültiges Prozent eingeben : ";
+       }
+    return f ;
+}
 void tabelle_zeigen(HANDLE h , einwohner bewohner[])
 {
     cout<<endl;
@@ -125,7 +145,19 @@ void clear_console(HANDLE h)
    }
 }
 
-
+string get_farbe_wert_durch_farbe_code(int code , farbe_code farbe[])
+{
+    string wert="";
+ for(int i=0;i<6;i++)
+ {
+   if (code==farbe[i].get_farbe_code())
+   {
+       wert=farbe[i].get_farbe_wert();
+       break;
+   }
+ }
+ return  wert;
+}
 
 int main(){
 
@@ -234,19 +266,76 @@ int main(){
                     cout<<"noch nicht programiert!"<<endl;
                     cout<<"versuch nochmal und wähl 'ja' bei zufällig"<<endl;
                     //cout<<"wie wollen Sie die Parteien auf die Bewohner verteilt ?"<<endl;
-                    //int f=0;
-                    //int summe=100;
+                    int f=0;
+                    int summe=100;
+                    farbe_prozent Prozent_tabelle[num];
+                    bool check_prozent=false;
 
-                   for(int i=0; i<=399; i++){
+while(f<num-1){
 
-                       farbe_code f2;
-                       Partei p2(i,"",f2);
-                       bewohner[i]=einwohner(i,p2);
+string wert=get_farbe_wert_durch_farbe_code(id_gewunschte_farbe[f],farbe) ;
 
-                   }
+cout<<"wie viele Prozent der Bewhonern sollte  die Partei name'"<<wert<<"'haben?(Prozent zwischen 0 und "<< summe<<"eingeben)"<<endl;
+Prozent_tabelle[f].prozent=check_num2();
+if (Prozent_tabelle[f].prozent>summe||Prozent_tabelle[f].prozent<0)
+{
+    check_prozent=false;
+}
+else
+{
+    check_prozent=true;
+    summe=summe-Prozent_tabelle[f].prozent;
+    Prozent_tabelle[f].farbe_code=id_gewunschte_farbe[f];
+    f++;
+}
+while(check_prozent==false)
+{
+    cout<<"bitte gültiges Prozent nochmal:";
+   Prozent_tabelle[f].prozent=check_num2();
+   if (Prozent_tabelle[f].prozent>summe||Prozent_tabelle[f].prozent<0)
+   {
+       check_prozent=false;
+   }
+   else
+   {
+       check_prozent=true;
+       summe=summe-Prozent_tabelle[f].prozent;
+       Prozent_tabelle[f].farbe_code=id_gewunschte_farbe[f];
+       f++;
+   }
+}
 
+}
 
-                }
+Prozent_tabelle[f].prozent=summe;
+Prozent_tabelle[f].farbe_code=id_gewunschte_farbe[f];
+int anfang=0;
+
+for(const farbe_prozent & omar : Prozent_tabelle)
+{
+    if (omar.prozent>0)
+    {
+    int bewohnerzahl=round(399*omar.prozent/100);
+   // cout<<"hier bewhoner zahler :"<<bewohnerzahl<<"haben die partei code "<<omar.farbe_code<<endl;
+
+    for(int i=anfang; i<bewohnerzahl+anfang+1; i++){
+
+    string wert=get_farbe_wert_durch_farbe_code(omar.farbe_code,farbe);
+  //  cout<<wert<<endl;
+    if (i==400)
+    {break;}
+
+                           farbe_code f2(omar.farbe_code,wert);
+                           Partei p2(i,"",f2);
+                           bewohner[i]=einwohner(i,p2);
+
+                       }
+    anfang=anfang+bewohnerzahl+1;
+}
+}
+cout<< "die Parteien sind Auf die Bewohner so verteilt : "<<endl;
+tabelle_zeigen(h,bewohner);
+ }
 
 
     GetConsoleScreenBufferInfo(h, &SBInfo);
@@ -331,10 +420,11 @@ int main(){
    SetConsoleTextAttribute(h,0);
   cout<<endl;
   tabelle_zeigen(h,bewohner);
-  SetConsoleTextAttribute(h,0);
- cout<<endl<<endl;
-}
 
+  SetConsoleTextAttribute(h,15);
+
+
+    }
   //  }
 
 }

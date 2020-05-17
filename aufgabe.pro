@@ -6,10 +6,12 @@ CONFIG -= qt
 SOURCES += \
         einwohner.cpp \
         farbe_code.cpp \
+        farbe_prozent.cpp \
         main.cpp \
         partei.cpp
 
 HEADERS += \
     einwohner.h \
     farbe_code.h \
+    farbe_prozent.h \
     partei.h

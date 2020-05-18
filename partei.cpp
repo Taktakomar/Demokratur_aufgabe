@@ -14,7 +14,18 @@ partei_id=F_id;
 partei_name=name;
 this->farbe.code=farbe.code;
 this->farbe.farbe_Wert=farbe.farbe_Wert;
-
+}
+void Partei::set_partei_id(int partei_id)
+{
+    this->partei_id=partei_id;
+}
+void Partei::set_partei_name(string partei_name)
+{
+    this->partei_name=partei_name;
+}
+void Partei::set_partei_farbe(farbe_code farbe)
+{
+    this->farbe=farbe;
 }
 string Partei::getFarbe()
 {

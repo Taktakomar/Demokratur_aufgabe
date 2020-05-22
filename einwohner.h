@@ -4,16 +4,24 @@
 
 class einwohner
 {
-public:
-
+private:
+    int Corona_Status;
     int einwohner_id;
     Partei gewahlte_partei;
+
+
+public:
+
+
     einwohner();
-    einwohner(int id , Partei gewahlte_partei);
+    einwohner(int id , Partei gewahlte_partei,int Corona_Status);
     void set_einwohner_id(int id);
     void set_gewahlte_partei(Partei gewahlte_partei);
-    string get_gewahlte_partei_Farbe(void);
+    int get_einwohner_id();
+    Partei get_gewahlte_partei(void);
     int get_bewohner_code_farbe(void);
+    int get_corona_status();
+    void set_corona_status(int Corona_Status);
 };
 
 #endif // EINWOHNER_H

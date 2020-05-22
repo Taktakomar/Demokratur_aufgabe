@@ -6,8 +6,8 @@ using namespace std;
 class farbe_code
 {
 public:
-    int code;
-    string  farbe_Wert;
+            int code;
+            string  farbe_Wert;
             farbe_code();
             farbe_code(int x , string y);
     int     get_farbe_code();

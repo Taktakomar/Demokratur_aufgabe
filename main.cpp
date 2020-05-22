@@ -14,6 +14,7 @@
 #include <cmath>
 
 
+
     using namespace std;
     int c ;
     farbe_code farbe[6];
@@ -37,7 +38,7 @@ void lsite_fuhlen_anzeigen(){
         cout<<"Bitte wählen sie 2 oder mehrere gewünschten Farben aus Liste !"<<endl<<endl;
         cout<<" |Id | Inhalt |  Name |"<<endl;
         cout<<" ----------------------"<<endl;
-        for (const farbe_code & omar : farbe){
+        for (const farbe_code  &omar : farbe){
              i++;
              cout<<" |"<<i<<"  |  ";
              SetConsoleTextAttribute(h,16*omar.code);
@@ -71,8 +72,10 @@ int  check_num(){
                        break;
                    }
                }
+
                cout<<"Achtung !der Anzahl sollte zwischen 2 und 6 sein!"<<endl;
                cout<<"Bitte tippen Sie den Anzahl noch mal Hier  : ";
+
          }
     return f ;
 }
@@ -113,7 +116,7 @@ int  check_num2()
     return f ;
 }
 void tabelle_zeigen(HANDLE h , einwohner bewohner[])
-{
+{ int d=0;
     cout<<endl;
     for (int i=0;i<=399;i++){
         if (i%20==0 && i!=0){
@@ -124,25 +127,25 @@ void tabelle_zeigen(HANDLE h , einwohner bewohner[])
         }
 
            SetConsoleTextAttribute(h,16*bewohner[i].get_bewohner_code_farbe());
-             cout<<"|__";
+           if (bewohner[i].get_corona_status()==1)
+           {
+               d++;
+             cout<<"|*_*";
+           }
+           else
+           {
+             cout<<"|___";
+           }
 
     }
+
     SetConsoleTextAttribute(h,0);
     cout<<"|";
      cout<<endl;
-
-}
-void clear_console(HANDLE h)
-{
-    for (int i=0;i<=399;i++){
-        if (i%20==0 || i==0){
-            SetConsoleTextAttribute(h,0);
-                cout<<endl;
-         }
-            SetConsoleTextAttribute(h,0);
-         cout<<"   ";
-
-   }
+     SetConsoleTextAttribute(h,15);
+     cout<<"Anzahl der Bewohner der Aktuell Corona haben :"<<d;
+     SetConsoleTextAttribute(h,0);
+     cout<<endl;
 }
 
 string get_farbe_wert_durch_farbe_code(int code , farbe_code farbe[])
@@ -239,6 +242,11 @@ int main(){
                 if (zufallig=="JA"||zufallig=="ja"){
                         int zufall,zufall_id=0;
                         string wert="";
+                        int corona_zahl=0;
+                        int corona_haber;
+
+                        cout<<"wie viel Bewohner sollen Corona haben ?";
+                        cin>>corona_zahl;
                             for(int i=0; i<=399; i++){
                                 zufall =rand()% num;
                                     zufall_id=id_gewunschte_farbe[zufall];
@@ -252,9 +260,18 @@ int main(){
 
                                         farbe_code f2(zufall_id,wert);
                                             Partei p2(i,"1",f2);
-                                                bewohner[i]=einwohner(i,p2);
-
+                                            bewohner[i]=einwohner(i,p2,0);
                                   }
+
+                            for(int i=0;i<corona_zahl;i++)
+                            {
+
+
+                                corona_haber= rand()%400;
+
+                                 bewohner[corona_haber].set_corona_status(1);
+                            }
+
 
                             cout<< "die Parteien sind Auf die Bewohner so verteilt : "<<endl;
                             tabelle_zeigen(h,bewohner);
@@ -315,19 +332,16 @@ for(const farbe_prozent & omar : Prozent_tabelle)
 {
     if (omar.prozent>0)
     {
+
     int bewohnerzahl=round(399*omar.prozent/100);
-   // cout<<"hier bewhoner zahler :"<<bewohnerzahl<<"haben die partei code "<<omar.farbe_code<<endl;
-
     for(int i=anfang; i<bewohnerzahl+anfang+1; i++){
-
     string wert=get_farbe_wert_durch_farbe_code(omar.farbe_code,farbe);
-  //  cout<<wert<<endl;
     if (i==400)
     {break;}
 
                            farbe_code f2(omar.farbe_code,wert);
                            Partei p2(i,"",f2);
-                           bewohner[i]=einwohner(i,p2);
+                           bewohner[i]=einwohner(i,p2,0);
 
                        }
     anfang=anfang+bewohnerzahl+1;
@@ -341,7 +355,7 @@ tabelle_zeigen(h,bewohner);
     GetConsoleScreenBufferInfo(h, &SBInfo);
     SHORT a=SBInfo.dwCursorPosition.X;
     SHORT b=SBInfo.dwCursorPosition.Y;
-    if(bewohner[0].gewahlte_partei.get_code()!=0)
+    if(bewohner[0].get_gewahlte_partei().get_code()!=0)
     {
 
     while(d!=400){
@@ -354,11 +368,10 @@ tabelle_zeigen(h,bewohner);
                 SetConsoleTextAttribute(h,0);
                    cout<<endl;
                         SetConsoleCursorPosition(h, {a,b});
-
                             Sleep(500);
-                                clear_console(h);
 
-                                    for(int c=0;c<=1000;c++){
+
+                                    for(int c=0;c<=5000;c++){
                                          wahl = rand()%400;
                                          nachbarn[0]= wahl-1;
                                          nachbarn[1] = wahl+1;
@@ -386,13 +399,21 @@ tabelle_zeigen(h,bewohner);
          int compar=rand()%2;
          if (compar==0 )
          {
-             bewohner[wahl]=bewohner[zwei[1]];
+             bewohner[wahl].set_gewahlte_partei(bewohner[zwei[1]].get_gewahlte_partei());
+            if (bewohner[zwei[1]].get_corona_status()==1)
+            {
+                 bewohner[wahl].set_corona_status(bewohner[zwei[1]].get_corona_status());
+            }
 
          }
          else
          {
 
-             bewohner[zwei[1]]=bewohner[wahl];
+             bewohner[zwei[1]].set_gewahlte_partei(bewohner[wahl].get_gewahlte_partei());
+             if (bewohner[wahl].get_corona_status()==1)
+             {
+                   bewohner[zwei[1]].set_corona_status(bewohner[wahl].get_corona_status());
+             }
          }
      }
 
@@ -416,7 +437,7 @@ tabelle_zeigen(h,bewohner);
   cout<<endl;
 
    SetConsoleTextAttribute(h,15);
-   cout<<"Alle bewohner haben jetzt zufällig '"<<bewohner[0].gewahlte_partei.getFarbe()<<"' als gewählte Partei!";
+   cout<<"Alle bewohner haben jetzt zufällig '"<<bewohner[0].get_gewahlte_partei().getFarbe()<<"' als gewählte Partei!";
    SetConsoleTextAttribute(h,0);
   cout<<endl;
   tabelle_zeigen(h,bewohner);
@@ -425,7 +446,6 @@ tabelle_zeigen(h,bewohner);
 
 
     }
-  //  }
 
 }
 

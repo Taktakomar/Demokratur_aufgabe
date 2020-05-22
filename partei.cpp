@@ -2,7 +2,7 @@
 
 Partei::Partei()
 {
-partei_id=1;
+this->partei_id=1;
 partei_name="Grün";
 this->farbe.code=5;
 this->farbe.farbe_Wert="ss";
@@ -30,6 +30,10 @@ void Partei::set_partei_farbe(farbe_code farbe)
 string Partei::getFarbe()
 {
     return  farbe.get_farbe_wert();
+}
+string Partei::get_partei_name()
+{
+    return this->partei_name;
 }
 int Partei::get_code()
 {

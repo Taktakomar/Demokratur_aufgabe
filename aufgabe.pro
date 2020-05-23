@@ -7,6 +7,7 @@ SOURCES += \
         einwohner.cpp \
         farbe_code.cpp \
         farbe_prozent.cpp \
+        game.cpp \
         main.cpp \
         partei.cpp
 
@@ -14,4 +15,5 @@ HEADERS += \
     einwohner.h \
     farbe_code.h \
     farbe_prozent.h \
+    game.h \
     partei.h

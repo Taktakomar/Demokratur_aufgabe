@@ -2,18 +2,18 @@
 
 Partei::Partei()
 {
-this->partei_id=1;
-partei_name="Grün";
-this->farbe.code=5;
-this->farbe.farbe_Wert="ss";
+    this->partei_id=1;
+    partei_name="Grün";
+    this->farbe.code=5;
+    this->farbe.farbe_Wert="ss";
 
 }
 Partei::Partei(int F_id , string name , farbe_code farbe)
 {
-partei_id=F_id;
-partei_name=name;
-this->farbe.code=farbe.code;
-this->farbe.farbe_Wert=farbe.farbe_Wert;
+    partei_id=F_id;
+    partei_name=name;
+    this->farbe.code=farbe.code;
+    this->farbe.farbe_Wert=farbe.farbe_Wert;
 }
 void Partei::set_partei_id(int partei_id)
 {
